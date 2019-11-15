@@ -72,11 +72,13 @@ def main():
 		filename = validate_file(str(cin))
 		datum = parsing.parser(filename)
 		treetest.printing(datum, 0)
+		semantics.build_stack(100)
 		semantics.verify_semantics(datum, 0)
 	if len(sys.argv) == 2:
 		filename = validate_file(str(sys.argv[1]))
 		datum = parsing.parser(filename)
 		treetest.printing(datum, 0)
+		semantics.build_stack(100)
 		semantics.verify_semantics(datum, 0)
 
 # our program's entry point		

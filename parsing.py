@@ -47,6 +47,7 @@ def assign():
                 tk = de_tokens.popleft()
                 np.token3 = tk
                 np.child1 = expr()
+                return np
             else:
                 error("LT_tk", lookahead(de_tokens))
         else:

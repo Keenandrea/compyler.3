@@ -57,11 +57,10 @@ token_ids = enum(
 # e token was locate
 # d on in the file
 class Token(object):
-    def __init__(self, identity = None, instance = None, location = 1, stack = []):
+    def __init__(self, identity = None, instance = None, location = 1):
         self._identity = identity
         self._instance = instance
         self._location = location
-        self._stack = stack
 
     @property
     def identity(self):
@@ -86,8 +85,3 @@ class Token(object):
     @location.setter
     def location(self, tloc):
         self._location = tloc
-
-    def build_token_stack(self, stack):
-        i = 0
-        for i in xrange(0,99,1):
-            stack[i].instance = ""
