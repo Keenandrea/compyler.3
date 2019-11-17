@@ -3,7 +3,6 @@ import collections
 
 import node
 import token
-import utils
 import scanner
 
 tk = token.Token()
@@ -18,6 +17,7 @@ def fetch_tokens(fn):
             de_tokens.append(tk)
             line_list.append(line_number)
             if tk.identity == token.token_ids.token_names[35]: 
+                print fn, 'scanned without error...'
                 break
             if tk.identity == token.token_ids.token_names[36]: 
                 break  
@@ -39,12 +39,15 @@ def assign():
     if lookahead(de_tokens) == "ID_tk":
         np = fetch_node("<assign>")
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         if lookahead(de_tokens) == "LT_tk":
             tk = de_tokens.popleft()
+            (np.toks).append(tk)
             np.token2 = tk
             if lookahead(de_tokens) == "LT_tk":
                 tk = de_tokens.popleft()
+                (np.toks).append(tk)
                 np.token3 = tk
                 np.child1 = expr()
                 return np
@@ -62,18 +65,22 @@ def cond():
         tk = de_tokens.popleft()
         if lookahead(de_tokens) == "LPAREN_tk":
             tk = de_tokens.popleft()
+            (np.toks).append(tk)
             np.token1 = tk
             if lookahead(de_tokens) == "LPAREN_tk":
                 tk = de_tokens.popleft()
+                (np.toks).append(tk)
                 np.token2 = tk
                 np.child1 = expr()
                 np.child2 = RO()
                 np.child3 = expr()
                 if lookahead(de_tokens) == "RPAREN_tk":
                     tk = de_tokens.popleft()
+                    (np.toks).append(tk)
                     np.token3 = tk
                     if lookahead(de_tokens) == "RPAREN_tk":
                         tk = de_tokens.popleft()
+                        (np.toks).append(tk)
                         np.token4 = tk
                         np.child4 = stat()
                         return np
@@ -96,18 +103,22 @@ def loop():
         tk = de_tokens.popleft()
         if lookahead(de_tokens) == "LPAREN_tk":
             tk = de_tokens.popleft()
+            (np.toks).append(tk)
             np.token1 = tk
             if lookahead(de_tokens) == "LPAREN_tk":
                 tk = de_tokens.popleft()
+                (np.toks).append(tk)
                 np.token2 = tk
                 np.child1 = expr()
                 np.child2 = RO()
                 np.child3 = expr()
                 if lookahead(de_tokens) == "RPAREN_tk":
                     tk = de_tokens.popleft()
+                    (np.toks).append(tk)
                     np.token3 = tk
                     if lookahead(de_tokens) == "RPAREN_tk":
                         tk = de_tokens.popleft()
+                        (np.toks).append(tk)
                         np.token4 = tk
                         np.child4 = stat()
                         return np
@@ -127,28 +138,34 @@ def RO():
     np = fetch_node("<RO>")
     if lookahead(de_tokens) == "LT_tk":
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         if lookahead(de_tokens) == "LT_tk":
             tk = de_tokens.popleft()
+            (np.toks).append(tk)
             np.token2 = tk
             return np
         elif lookahead(de_tokens) == "GT_tk":
             tk = de_tokens.popleft()
+            (np.toks).append(tk)
             np.token2 = tk
             return np
         else:
             return np
     elif lookahead(de_tokens) == "GT_tk":
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         if lookahead(de_tokens) == "GT_tk":
             tk = de_tokens.popleft()
+            (np.toks).append(tk)
             np.token2 = tk
             return np
         else:
             return np
     elif lookahead(de_tokens) == "ASSIGN_tk":
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         return np
     else:
@@ -159,20 +176,24 @@ def R():
     np = fetch_node("<R>")
     if lookahead(de_tokens) == "LBRACKET_tk":
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         np.child1 = expr()
         if lookahead(de_tokens) == "RBRACKET_tk":
             tk = de_tokens.popleft()
+            (np.toks).append(tk)
             np.token2 = tk
             return np
         else:
             error("RBRACKET_tk", lookahead(de_tokens))
     elif lookahead(de_tokens) == "ID_tk":
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         return np
     elif lookahead(de_tokens) == "INT_tk":
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         return np
     else:
@@ -183,6 +204,7 @@ def M():
     np = fetch_node("<M>")
     if lookahead(de_tokens) == "MINUS_tk":
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         np.child1 = M()
         return np
@@ -196,11 +218,13 @@ def N():
     np.child2 = M()
     if lookahead(de_tokens) == "FSLASH_tk":
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         np.child3 = N()
         return np
     elif lookahead(de_tokens) == "ASTERISK_tk":
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         np.child3 = N()
         return np
@@ -213,6 +237,7 @@ def A():
     np.child1 = N()
     if lookahead(de_tokens) == "MINUS_tk":
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         np.child2 = A()
         return np
@@ -225,6 +250,7 @@ def expr():
     np.child1 = A()
     if lookahead(de_tokens) == "PLUS_tk":
         tk = de_tokens.popleft()
+        (np.toks).append(tk)
         np.token1 = tk
         np.child2 = expr()
         return np
@@ -248,6 +274,7 @@ def ins():
         if lookahead(de_tokens) == "ID_tk":
             np = fetch_node("<in>")
             tk = de_tokens.popleft()
+            (np.toks).append(tk)
             np.token1 = tk
             return np
         else:
@@ -326,11 +353,13 @@ def vars():
         tk = de_tokens.popleft()
         if lookahead(de_tokens) == "ID_tk":
             tk = de_tokens.popleft()
+            (np.toks).append(tk)
             np.token1 = tk
             if lookahead(de_tokens) == "COLON_tk":
                 tk = de_tokens.popleft()
                 if lookahead(de_tokens) == "INT_tk":
                     tk = de_tokens.popleft()
+                    (np.toks).append(tk)
                     np.token2 = tk
                     np.child1 = vars()
                     return np
@@ -349,7 +378,7 @@ def program(fn):
     np.child1 = vars()
     np.child2 = block()
     if lookahead(de_tokens) == "EOF_tk":
-        print "Successfully parsed", fn  
+        print fn, "parsed without error..."  
     else:
         error("EOF_tk", lookahead(de_tokens))
     return np

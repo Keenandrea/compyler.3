@@ -19,7 +19,7 @@ import token
 # ens will be stor
 # ed. 
 class Node(object):
-    def __init__(self, label = "", depth = None, child1 = None, child2 = None, child3 = None, child4 = None, token1 = token.Token(), token2 = token.Token(), token3 = token.Token(), token4 = token.Token()):
+    def __init__(self, label = "", depth = None, child1 = None, child2 = None, child3 = None, child4 = None, token1 = token.Token(), token2 = token.Token(), token3 = token.Token(), token4 = token.Token(), toks = []):
         self.label = label
         self.depth = depth
         self.child1 = child1
@@ -30,3 +30,4 @@ class Node(object):
         self.token2 = token2
         self.token3 = token3
         self.token4 = token4
+        self.toks = toks

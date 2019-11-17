@@ -71,15 +71,16 @@ def main():
 				sys.exit(1) 				
 		filename = validate_file(str(cin))
 		datum = parsing.parser(filename)
-		treetest.printing(datum, 0)
-		semantics.build_stack(100)
-		semantics.verify_semantics(datum, 0)
+		#treetest.printing(datum,0)
+		semantics.static_semantics(datum,0)
+		print filename, 'makes proper use of its variables...'
 	if len(sys.argv) == 2:
 		filename = validate_file(str(sys.argv[1]))
+		print filename, 'validated...'
 		datum = parsing.parser(filename)
-		treetest.printing(datum, 0)
-		semantics.build_stack(100)
-		semantics.verify_semantics(datum, 0)
+		#treetest.printing(datum,0)
+		semantics.static_semantics(datum,0)
+		print filename, 'initialized variables properly...'
 
 # our program's entry point		
 if __name__ == "__main__":
